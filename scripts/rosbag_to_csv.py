@@ -48,7 +48,7 @@ def format_csv_filename(form, topic_name):
     ret = form.replace('%t', topic_name.replace('/','-'))
     ret=ret[1:]
     return ret
- 
+
 def bag_to_csv(options, fname):
     try:
         bag = rosbag.Bag(fname)
@@ -77,8 +77,13 @@ def bag_to_csv(options, fname):
                     stream.write("time")
                     message_type_to_csv(stream, msg)
                     stream.write('\n')
-
-            stream.write(datetime.fromtimestamp(time.to_time()).strftime('%Y/%m/%d/%H:%M:%S.%f'))
+            # *Original
+            # stream.write(datetime.fromtimestamp(time.to_time()).strftime('%Y/%m/%d/%H:%M:%S.%f'))
+            # *Modified
+            # print(str(float(str(time)) * 1e-9))
+            # stream.write(str(float(str(time)) * 1e-9))
+            print(str(time))
+            stream.write(str(time))
             message_to_csv(stream, msg, flatten=not options.header)
             stream.write('\n')
         [s.close for s in streamdict.values()]
@@ -95,7 +100,7 @@ def GetTopicList(path):
     for i in range(0,len(bag.get_type_and_topic_info()[1].values())):
         types.append(bag.get_type_and_topic_info()[1].values()[i][0])
 
-    results=[]    
+    results=[]
     for to,ty in zip(topics,types):
         results.append(to)
 
