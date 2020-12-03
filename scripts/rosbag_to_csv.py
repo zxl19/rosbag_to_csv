@@ -20,14 +20,14 @@ def message_to_csv(stream, msg, flatten=False):
             message_to_csv(stream, val, flatten)
     except:
         msg_str = str(msg)
-        if msg_str.find(" , ") is not -1:
+        if msg_str.find(",") is not -1:
             if flatten:
                 msg_str = msg_str.strip("(")
                 msg_str = msg_str.strip(")")
                 msg_str = msg_str.strip(" ")
             else:
                 msg_str = "\"" + msg_str + "\""
-        stream.write(" , " + msg_str)
+        stream.write(", " + msg_str)
 
 def message_type_to_csv(stream, msg, parent_content_name=""):
     """
@@ -39,7 +39,7 @@ def message_type_to_csv(stream, msg, parent_content_name=""):
             val = msg.__getattribute__(s)
             message_type_to_csv(stream, val, ".".join([parent_content_name,s]))
     except:
-        stream.write(" , " + parent_content_name)
+        stream.write(", " + parent_content_name)
 
 def format_csv_filename(form, topic_name):
     global seq
