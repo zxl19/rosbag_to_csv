@@ -1,5 +1,35 @@
 # rosbag_to_csv
 
+1. Change `line 30` and `line 42` in `/scripts/rosbag_to_csv.py`
+    from:
+
+    ```python
+    stream.write("," + msg_str)             # line 30
+    stream.write("," + parent_content_name) # line 42
+    ```
+
+    to:
+
+    ```python
+    stream.write(", " + msg_str)             # line 30
+    stream.write(", " + parent_content_name) # line 42
+    ```
+
+2. Change `line 81` in `/scripts/rosbag_to_csv.py`
+    from:
+
+    ```python
+    stream.write(datetime.fromtimestamp(time.to_time()).strftime('%Y/%m/%d/%H:%M:%S.%f'))
+    ```
+
+    to:
+
+    ```python
+    stream.write(str(time))
+    ```
+
+------
+
 A GUI tool to convert topics from a rosbag file to csv files
 
 # Install
